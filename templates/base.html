@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Hospital Management System{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">✚</span><span><b>CarePoint</b><small>HOSPITAL SYSTEM</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav>
+      <a class="nav-link {{ 'active' if page=='dashboard' else '' }}" href="{{ url_for('dashboard') }}"><span>▦</span> Dashboard</a>
+      <a class="nav-link {{ 'active' if page=='patients' else '' }}" href="{{ url_for('patients') }}"><span>♙</span> Patients</a>
+      <a class="nav-link {{ 'active' if page=='doctors' else '' }}" href="{{ url_for('doctors') }}"><span>⚕</span> Doctors</a>
+      <a class="nav-link {{ 'active' if page=='appointments' else '' }}" href="{{ url_for('appointments') }}"><span>▣</span> Appointments</a>
+      <a class="nav-link {{ 'active' if page=='records' else '' }}" href="{{ url_for('records') }}"><span>▤</span> Medical Records</a>
+      <a class="nav-link {{ 'active' if page=='billing' else '' }}" href="{{ url_for('billing') }}"><span>₹</span> Billing</a>
+      <a class="nav-link {{ 'active' if page=='pharmacy' else '' }}" href="{{ url_for('pharmacy') }}"><span>✚</span> Pharmacy</a>
+      <a class="nav-link {{ 'active' if page=='reports' else '' }}" href="{{ url_for('reports') }}"><span>▥</span> Reports</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="mini-icon">✦</div><b>Care that connects.</b><p>A simple workspace for everyday hospital operations.</p></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button><div><span class="eyebrow">HOSPITAL MANAGEMENT</span><h1>{% block heading %}Dashboard{% endblock %}</h1></div><div class="topbar-right"><span class="status-dot"></span><span>System workspace</span><div class="avatar">PH</div></div></header>
+    <section class="page-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}<button onclick="this.parentElement.remove()" aria-label="Dismiss">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+      <footer>Hospital Management System · College project prototype · Phase 3</footer>
+    </section>
+  </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
